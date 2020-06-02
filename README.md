@@ -153,11 +153,13 @@
 # 실행 방법 가이드(API 명세서) 
 ###
 *모든 테스트는 POSTMAN을 이용해서 진행하였습니다.
-	[API RESULT]
+	
+##[API RESULT]
+###	
 	(ApiModel)
 		- int result;
 		- String message;
-		
+###		
 	(ErrorStatus)	
 		- int Success = 0;
 		- int Duplicate = 1;
@@ -165,6 +167,7 @@
 		- int InvalidParameter = 3;
 		- int InvalidResult = 4;
 
+###	
 [POST]	[IP:PORT]/api/Users/create
 Header Content-Type	x-www-form-urlencoded
 
@@ -175,7 +178,7 @@ String password
 Response
 ApiModel result 	
 
-
+###	
 [POST]	[IP:PORT]/api/Users/login
 Header Content-Type	x-www-form-urlencoded
 
@@ -188,7 +191,7 @@ ApiModel result : message 부분에 Authorization : Token 출력.
 
 *이후 모든 API 호출 시, header 부분에 Authorization : Token 출력 해 주지 않으면 401 에러.
 
-
+###	
 [POST]	[IP:PORT]/api/Coupons
 Header 
 Content-Type : x-www-form-urlencoded
@@ -200,7 +203,7 @@ int count : 생성할 Coupon 갯수
 Response
 ApiModel result 
 
-
+###	
 [PUT]	[IP:PORT]/api/Coupons
 Header 
 Content-Type : x-www-form-urlencoded
@@ -211,7 +214,7 @@ Body | x-www-form-urlencoded
 Response
 String code
 
-
+###	
 [GET]	[IP:PORT]/api/Coupons
 Header 
 Content-Type : x-www-form-urlencoded
@@ -222,7 +225,7 @@ Body | x-www-form-urlencoded
 Response
 JSONObject code
 
-
+###	
 [PUT]	[IP:PORT]/api/Coupons/{couponCode}/{status}
 Header 
 Content-Type : x-www-form-urlencoded
@@ -233,6 +236,7 @@ Body | x-www-form-urlencoded
 Response
 ApiModel result
 
+###	
 [GET]	[IP:PORT]/api/Coupons/expired
 Header 
 Content-Type : x-www-form-urlencoded
