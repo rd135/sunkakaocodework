@@ -171,7 +171,8 @@
 [POST]	[IP:PORT]/api/Users/create
 Header Content-Type	x-www-form-urlencoded
 
-Body x-www-form-urlencoded
+Body 
+x-www-form-urlencoded
 String userId
 String password
 
@@ -182,7 +183,8 @@ ApiModel result
 [POST]	[IP:PORT]/api/Users/login
 Header Content-Type	x-www-form-urlencoded
 
-Body x-www-form-urlencoded
+Body 
+x-www-form-urlencoded
 String userId
 String password
 
@@ -197,7 +199,8 @@ Header
 Content-Type : x-www-form-urlencoded
 Authorization : Login으로 발급받은 Token
 
-Body | x-www-form-urlencoded
+Body 
+x-www-form-urlencoded
 int count : 생성할 Coupon 갯수
 
 Response
@@ -209,18 +212,20 @@ Header
 Content-Type : x-www-form-urlencoded
 Authorization : Login으로 발급받은 Token
 
-Body | x-www-form-urlencoded
+Body
+x-www-form-urlencoded
 
 Response
 String code
 
 ###	
 [GET]	[IP:PORT]/api/Coupons
-Header 
-Content-Type : x-www-form-urlencoded
-Authorization : Login으로 발급받은 Token
-
-Body | x-www-form-urlencoded
+Header   
+Content-Type : x-www-form-urlencoded   
+Authorization : Login으로 발급받은 Token   
+   
+Body 
+x-www-form-urlencoded   
 
 Response
 JSONObject code
@@ -231,7 +236,8 @@ Header
 Content-Type : x-www-form-urlencoded
 Authorization : Login으로 발급받은 Token
 
-Body | x-www-form-urlencoded
+Body
+x-www-form-urlencoded
 
 Response
 ApiModel result
@@ -242,7 +248,8 @@ Header
 Content-Type : x-www-form-urlencoded
 Authorization : Login으로 발급받은 Token
 
-Body | x-www-form-urlencoded
+Body
+x-www-form-urlencoded
 
 Response
 JSONObject code
