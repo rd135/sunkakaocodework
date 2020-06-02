@@ -19,7 +19,7 @@ public class NotifySchedulerService {
 	 * 
 	 * @throws Throwable
 	 */
-	@Scheduled(fixedDelay=50000)
+	@Scheduled(fixedDelay=100000)
 	//@Scheduled(cron="0 0 0 * * ?")
 	@Async
 	public void runSchedulerProcessor() throws Exception {

@@ -52,7 +52,6 @@ public class CouponServiceImpl implements ICouponService {
 		int divInt = 10000;
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		//String[] randCodes = new String[count];
 		String expiredMonth = config.getProperty("expiredMonth");
 		
 		//properties에 입력하지 않은 경우 기본값 1
@@ -143,6 +142,7 @@ public class CouponServiceImpl implements ICouponService {
 					case 0 : 
 						apiModel.setResult(ErrorCodeType.InvalidResult);
 						apiModel.setMessage("You need to give this coupon first!");
+						break;
 					//사용자에게 발급 된 경우
 					case 1 :
 						if(status == CouponStatus.USED.value()) {
@@ -156,10 +156,15 @@ public class CouponServiceImpl implements ICouponService {
 								apiModel.setResult(ErrorCodeType.DBError);
 								apiModel.setMessage("Update Fail!");
 							}
-							
-						}else {
+							break;
+						}else if(status == CouponStatus.GAVE.value()){
 							apiModel.setResult(ErrorCodeType.InvalidParameter);
-							apiModel.setMessage("You need to give this coupon first!");
+							apiModel.setMessage("This Coupon is already given!");
+							break;
+						}else{
+							apiModel.setResult(ErrorCodeType.InvalidParameter);
+							apiModel.setMessage("Bad Status Parameter!");
+							break;
 						}
 					//이미 사용한 경우
 					case 2 :
@@ -174,19 +179,26 @@ public class CouponServiceImpl implements ICouponService {
 								apiModel.setResult(ErrorCodeType.DBError);
 								apiModel.setMessage("Update Fail!");
 							}
-							
-						}else {
+							break;
+						}else if(status == CouponStatus.USED.value()){
 							apiModel.setResult(ErrorCodeType.InvalidParameter);
-							apiModel.setMessage("You need to give this coupon first!");
+							apiModel.setMessage("This Coupon is already used!");
+							break;
+						}else{
+							apiModel.setResult(ErrorCodeType.InvalidParameter);
+							apiModel.setMessage("Bad Status Parameter!");
+							break;
 						}
 					//쿠폰 만료
 					case 3 : 
 						apiModel.setResult(ErrorCodeType.InvalidResult);
-						apiModel.setMessage("This coupon is already expired!");
+						apiModel.setMessage("This coupon is expired!");
+						break;
 					//그 외
 					default: 
 						apiModel.setResult(ErrorCodeType.InvalidResult);
 						apiModel.setMessage("Unknown error! Please contact the administrator!");
+						break;
 				}
 			} else {
 				//쿠폰은 하나만 있어야 하는데 2개 이상
@@ -207,7 +219,7 @@ public class CouponServiceImpl implements ICouponService {
 		String[] couponArr = null;
 		String targetDate = getSimpleDate(0);
 		
-		//발급만 된 쿠폰 List
+		//만료 된 쿠폰 List
 		List<CouponModel> couponList = getCouponList(CouponStatus.EXPIRED.value(), targetDate);
 		
 		//List check

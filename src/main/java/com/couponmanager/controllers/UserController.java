@@ -53,7 +53,7 @@ public class UserController {
 			apiModel.setMessage("Authorization :" + token);
 		} else {
 			apiModel.setResult(ErrorCodeType.DBError);
-			apiModel.setMessage("Success fail");
+			apiModel.setMessage("Login fail - No User Found");
 		}
 		
 		return apiModel;

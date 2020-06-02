@@ -38,9 +38,6 @@ public class UserServiceImpl implements IUserService {
 		UserModel user = userDao.select(map);
 		
 		if(user == null) {
-			String test = CryptoHelper.AESCTR_Encode_Default(password , "UTF-8");
-			System.out.println(CryptoHelper.AESCTR_Decode_Default(test));
-			
 			map.put("PASSWORD", CryptoHelper.AESCTR_Encode_Default(password , "UTF-8"));
 			int count = userDao.create(map);
 			
