@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+	<select id="getUser" parameterType="hashmap" resultType="TUser">
+		SELECT * FROM T_USER
+		<where>
+			<if test="USER_ID != null">AND UserId=#{USER_ID}</if>
+			<if test="PASSWORD != null">AND Password=#{PASSWORD}</if>
+		</where>
+	</select>
+	
+	<insert	id="insert" parameterType="hashmap">
+		INSERT INTO T_USER
+		(
+			UserId
+			,Password
+		)
+		VALUES
+			(
+			'${USER_ID}'
+			, '${PASSWORD}'
+			)
+	</insert>
+	
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Coupon">
+
+	<insert	id="insert" parameterType="hashmap">
+		INSERT INTO T_COUPON
+		(
+			Code
+			,Status
+			,CreateDate
+			,ExpiredDate
+		)
+		VALUES
+		<foreach item="item" index="index" collection="CODES" separator=",">
+			(
+			'${CODES[index]}'
+			, 0
+			, '${CREATE_DATE}'  
+			, '${EXPIRED_DATE}'
+			)
+		</foreach>
+	</insert>
+	
+	<select id="getCoupon" parameterType="hashmap" resultType="TCoupon">
+		SELECT * FROM T_COUPON
+		<where>
+			<if test="STATUS != null">AND Status=#{STATUS}</if>
+			<if test="STATUS_EXCLUDE != null">AND Status!=#{STATUS_EXCLUDE}</if>
+			<if test="CODE != null">AND Code=#{CODE}</if>
+			<if test="TARGET_DATE != null">AND date(#{TARGET_DATE}) >= date(ExpiredDate)</if>
+			<if test="NOTIFY_DATE != null">AND date(#{NOTIFY_DATE}) = date(ExpiredDate -INTERVAL 3 DAY)</if>
+		</where>
+		ORDER By CreateDate ASC
+		<if test="LIMIT != null">LIMIT #{LIMIT}</if>
+	</select>
+	
+	<update	id="update" parameterType="hashmap">
+		UPDATE T_COUPON
+		SET
+		Status=#{STATUS}
+		,UpdateDate=#{UPDATE_DATE}
+		<where>
+		 <if test="ID != null">AND ID = #{ID}</if>
+	 	 <if test="IDs != null">
+			AND Id IN
+			<foreach item="item" index="index" collection="IDs"
+				open="(" separator="," close=")">
+				${IDs[index]}
+			</foreach>
+		 </if>
+		</where>
+	</update>
+	
+</mapper>
